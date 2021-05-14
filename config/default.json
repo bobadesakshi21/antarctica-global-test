@@ -1,0 +1,22 @@
+{
+  "accessToken": {
+    "expiry": "1s",
+    "secret": "accessTokenSecret"
+  },
+  "refreshToken": {
+    "expiry": "7d",
+    "secret": "refreshTokenSecret"
+   },
+  "dbConfig": {
+    "name": "Authorization",
+    "usename": "root",
+    "password": "password",
+    "host": "localhost",
+    "port": "3306"
+  },
+  "redisConfig": {
+    "host": "localhost",
+    "port": "6379",
+    "password": "password"
+  }
+}
