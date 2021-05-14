@@ -6,9 +6,9 @@
   "refreshToken": {
     "expiry": "7d",
     "secret": "refreshTokenSecret"
-   },
+  },
   "dbConfig": {
-    "name": "Authorization",
+    "name": "Antarctica-Api",
     "usename": "root",
     "password": "password",
     "host": "localhost",
