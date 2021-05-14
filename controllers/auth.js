@@ -115,7 +115,12 @@ exports.search = async (req, res, next) => {
 
   try {
     const user = await User.findOne({
-      where: { fname: fname, lname: lname, empId: empId }
+      where: { fname: fname, lname: lname, empId: empId },
+      order: [
+        ['fname', 'ASC'],
+        ['lname', 'ASC'],
+        ['email', 'ASC']
+      ]
     })
     if (!user) {
       const err = new Error('User not found!')
