@@ -3,6 +3,7 @@ const router = express.Router()
 const { body } = require('express-validator')
 const User = require('../model/user')
 const Employee = require('../model/employee')
+const isAuth = require('../middleware/auth')
 
 const authController = require('../controllers/auth')
 
@@ -27,6 +28,8 @@ router.post('/register',
 
 router.post('/login', authController.login)
 
-router.get('/logout', authController.logout)
+router.post('/userlist/search', authController.search)
+
+router.get('/logout', isAuth, authController.logout)
 
 module.exports = router

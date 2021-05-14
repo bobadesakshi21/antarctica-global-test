@@ -107,6 +107,29 @@ exports.login = async (req, res, next) => {
     next(err)
   }
 }
+
+exports.search = async (req, res, next) => {
+  const fname = req.body.fname
+  const lname = req.body.lname
+  const empId = req.body.empId
+
+  try {
+    const user = await User.findOne({
+      where: { fname: fname, lname: lname, empId: empId }
+    })
+    if (!user) {
+      const err = new Error('User not found!')
+      err.statusCode = 401
+      throw err
+    }
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500
+    }
+    next(err)
+  }
+}
+
 exports.logout = (req, res, next) => {
   try {
     client.sremAsync('accessToken:sessions:' + req.userId, req.accessTokenId)
