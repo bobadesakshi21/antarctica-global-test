@@ -73,3 +73,4 @@ Logout end-point
     Route: http://localhost:3000/user/logout/
     Request Type: GET
 ```
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/8a14f1e8f5afc5ce8cad)
