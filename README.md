@@ -56,7 +56,7 @@ Login end-point
         }
 ```
 
-Get user list end-point
+Get user list end-point. It requires the page number as the request parameter
 ```
     Route: http://localhost:3000/user/search/1
     Request Type: POST
