@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const config = require('config')
 const { v4: uuidv4 } = require('uuid')
 const client = require('../util/redis')
-
+const { Op } = require('sequelize')
 
 exports.register = async (req, res, next) => {
   const fname = req.body.fname
@@ -110,17 +110,30 @@ exports.login = async (req, res, next) => {
 }
 
 exports.search = async (req, res, next) => {
+  const ITEMS_PER_PAGE = 2
   const fname = req.body.fname
   const lname = req.body.lname
   const empid = req.body.empid
+  const pageNo = req.params.pageNo
 
   try {
-    const user = await User.findOne({
-      where: { fname: fname, lname: lname },
+    const user = await User.findAll({
+      where: { fname: { [Op.like]: `%${fname}%` }, lname: { [Op.like]: `%${lname}%` } },
       include: [{
         model: Employee,
-        where: { empid: empid }
-      }]
+        where: { empid: { [Op.like]: `%${empid}%` } },
+        order: [
+          ['empid', 'ASC'],
+          ['orgName', 'ASC']
+        ]
+      }],
+      order: [
+        ['fname', 'ASC'],
+        ['lname', 'ASC'],
+        ['email', 'ASC']
+      ],
+      offset: (pageNo - 1) * ITEMS_PER_PAGE,
+      limit: ITEMS_PER_PAGE
     })
     if (!user) {
       const err = new Error('User not found!')
