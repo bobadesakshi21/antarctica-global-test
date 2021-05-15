@@ -28,7 +28,7 @@ router.post('/register',
 
 router.post('/login', authController.login)
 
-router.post('/userlist/search', authController.search)
+router.post('/search', authController.search)
 
 router.get('/logout', isAuth, authController.logout)
 

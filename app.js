@@ -25,7 +25,7 @@ app.use((error, req, res, next) => {
 })
 
 const sequelize = require('./util/database')
-sequelize.sync({ force: true })
+sequelize.sync()
   .then(() => {
     app.listen(process.env.PORT || 3000, () => {
       console.log('Server is up and running')

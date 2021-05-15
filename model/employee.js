@@ -9,13 +9,10 @@ const Employee = sequelize.define('employee', {
     allowNull: false,
     primaryKey: true
   },
-  userid: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
-  },
   orgName: { type: Sequelize.STRING }
 })
+
+User.hasOne(Employee)
+Employee.belongsTo(User, { constraints: true, onDelete: 'CASCADE' })
+
 module.exports = Employee

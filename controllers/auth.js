@@ -7,6 +7,7 @@ const config = require('config')
 const { v4: uuidv4 } = require('uuid')
 const client = require('../util/redis')
 
+
 exports.register = async (req, res, next) => {
   const fname = req.body.fname
   const lname = req.body.lname
@@ -32,10 +33,10 @@ exports.register = async (req, res, next) => {
       email: email,
       password: hashedPassword
     })
-    const employee = await Employee.create({
-      userid: user.id,
+    const employee = await user.createEmployee({
       orgName: orgName
     })
+
     res.status(201).json({ user: user, employee: employee })
   } catch (err) {
     if (!err.statusCode) {
@@ -111,22 +112,22 @@ exports.login = async (req, res, next) => {
 exports.search = async (req, res, next) => {
   const fname = req.body.fname
   const lname = req.body.lname
-  const empId = req.body.empId
+  const empid = req.body.empid
 
   try {
     const user = await User.findOne({
-      where: { fname: fname, lname: lname, empId: empId },
-      order: [
-        ['fname', 'ASC'],
-        ['lname', 'ASC'],
-        ['email', 'ASC']
-      ]
+      where: { fname: fname, lname: lname },
+      include: [{
+        model: Employee,
+        where: { empid: empid }
+      }]
     })
     if (!user) {
       const err = new Error('User not found!')
       err.statusCode = 401
       throw err
     }
+    res.status(200).json({ user: user })
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500
