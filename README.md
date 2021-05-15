@@ -30,6 +30,8 @@ npm start
 ```
 
 #### Routes
+
+Registration end-point.
 ```
   Route: http://localhost:3000/user/register
     Request Type: POST
@@ -42,6 +44,8 @@ npm start
             "orgName": "Pubix"
         }
 ```
+
+Login end-point
 ```
     Route: http://localhost:3000/user/login
     Request Type: POST
@@ -51,6 +55,8 @@ npm start
             "password":"john123"
         }
 ```
+
+Get user list end-point
 ```
     Route: http://localhost:3000/user/search/1
     Request Type: POST
@@ -61,6 +67,8 @@ npm start
         "empid": ""
     }
 ```
+
+Logout end-point
 ```
     Route: http://localhost:3000/user/logout/
     Request Type: GET
