@@ -37,7 +37,7 @@ exports.register = async (req, res, next) => {
       orgName: orgName
     })
 
-    res.status(201).json({ user: user, employee: employee })
+    res.status(201).json({ msg: 'User registered successfully', user: user, employee: employee })
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500
@@ -100,10 +100,7 @@ exports.login = async (req, res, next) => {
     client.saddAsync('accessToken:sessions:' + user.id, accessTokenId)
     client.saddAsync('refreshToken:sessions:' + user.id, refreshTokenId)
 
-    res.status(200).json({
-      accessToken,
-      refreshToken
-    })
+    res.status(200).json({ msg: 'User login successful' })
   } catch (err) {
     next(err)
   }
